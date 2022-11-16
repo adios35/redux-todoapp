@@ -2,6 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 let items = JSON.parse(sessionStorage.getItem("todos")!);
 let initialState: any = {
   todos: items,
+  editTodo: "",
 };
 const todoSlice = createSlice({
   name: "todo",
@@ -11,7 +12,7 @@ const todoSlice = createSlice({
       reducer(state, action) {
         state.todos = [...state.todos, action.payload];
         console.log(items);
-
+        state.editTodo = "";
         sessionStorage.setItem(
           "todos",
           JSON.stringify(state.todos.map((item) => item))
@@ -35,8 +36,17 @@ const todoSlice = createSlice({
         JSON.stringify(state.todos.map((item) => item))
       );
     },
+    editTodo(state, action) {
+      if (state.editTodo) return;
+      state.editTodo = action.payload.todo;
+      state.todos = state.todos.filter((item) => item.id !== action.payload.id);
+      sessionStorage.setItem(
+        "todos",
+        JSON.stringify(state.todos.map((item) => item))
+      );
+    },
   },
 });
 
-export const { addTodo, deleteTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo } = todoSlice.actions;
 export default todoSlice.reducer;

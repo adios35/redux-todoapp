@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { addTodo } from "../../../app/features/todoSlice";
-import { useDispatch } from "react-redux";
-import { nanoid } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddTodo = () => {
+  const editTodo = useSelector((state: any) => state.todo);
+
   const dispatch = useDispatch();
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState(
+    editTodo.editTodo ? editTodo.editTodo : ""
+  );
+  useEffect(() => {
+    setInput(editTodo.editTodo);
+  }, [editTodo]);
 
   function submit(e) {
     e.preventDefault();

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { BiTrash } from "react-icons/bi";
-import { deleteTodo } from "../../../app/features/todoSlice";
+import { BiTrash, BiEdit } from "react-icons/bi";
+import { deleteTodo, editTodo } from "../../../app/features/todoSlice";
 
 const TodoList = () => {
   const dispatch = useDispatch();
@@ -16,12 +16,24 @@ const TodoList = () => {
               key={item.id}
             >
               <span>{item.todo}</span>
-              <button
-                onClick={() => dispatch(deleteTodo(item.id))}
-                className="btn btn-sm btn-error text-white"
-              >
-                <BiTrash />
-              </button>
+              <div className="action flex gap-2">
+                `{" "}
+                <button
+                  onClick={() =>
+                    dispatch(editTodo({ id: item.id, todo: item.todo }))
+                  }
+                  className="btn btn-sm btn-secondary text-white"
+                >
+                  <BiEdit />
+                </button>
+                `
+                <button
+                  onClick={() => dispatch(deleteTodo(item.id))}
+                  className="btn btn-sm btn-error text-white"
+                >
+                  <BiTrash />
+                </button>
+              </div>
             </li>
           );
         })}
