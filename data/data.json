@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "macbook pro",
+      "img": "./assets/macbook.png"
+    },
+    {
+      "id": 2,
+      "name": "iphone 13 pro",
+      "img": "./assets/iphone13.png"
+    },
+    {
+      "id": 3,
+      "name": "ipad air",
+      "img": "./assets/ipad.png"
+    }
+  ]
+}
